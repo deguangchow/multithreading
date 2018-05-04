@@ -1,0 +1,15 @@
+stages:
+  - setup
+
+cache:
+  key: "PIPELINE-$CI_PIPELINE_ID"
+  untracked: true
+
+prepare-win:
+  stage: setup
+  script:
+    - git submodule update --init --recursive
+    - cmd /c sh -- tools/ci/cpplint.sh
+    - call tools\ci\check_result.bat cpplint
+    - call tools\ci\cppcheck.bat
+ 
