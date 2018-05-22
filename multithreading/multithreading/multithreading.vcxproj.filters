@@ -30,6 +30,12 @@
     <ClInclude Include="LiftOff.h">
       <Filter>thread</Filter>
     </ClInclude>
+    <ClInclude Include="thread_guard.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="deamon_threads.h">
+      <Filter>thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
