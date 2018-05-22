@@ -2,11 +2,11 @@
 copyright:	deguangchow@qq.com
 data:		2018/05/03
 autor:		deguangchow
-brief:		±ê×¼ÏµÍ³°üº¬ÎÄ¼şµÄ°üº¬ÎÄ¼ş
+brief:		æ ‡å‡†ç³»ç»ŸåŒ…å«æ–‡ä»¶çš„åŒ…å«æ–‡ä»¶
 */
-// stdafx.h : ±ê×¼ÏµÍ³°üº¬ÎÄ¼şµÄ°üº¬ÎÄ¼ş£¬
-// »òÊÇ¾­³£Ê¹ÓÃµ«²»³£¸ü¸ÄµÄ
-// ÌØ¶¨ÓÚÏîÄ¿µÄ°üº¬ÎÄ¼ş
+// stdafx.h : æ ‡å‡†ç³»ç»ŸåŒ…å«æ–‡ä»¶çš„åŒ…å«æ–‡ä»¶ï¼Œ
+// æˆ–æ˜¯ç»å¸¸ä½¿ç”¨ä½†ä¸å¸¸æ›´æ”¹çš„
+// ç‰¹å®šäºé¡¹ç›®çš„åŒ…å«æ–‡ä»¶
 //
 #ifndef STDAFX_H
 #define STDAFX_H
@@ -17,15 +17,21 @@ brief:		±ê×¼ÏµÍ³°üº¬ÎÄ¼şµÄ°üº¬ÎÄ¼ş
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include <assert.h>
+#include <mutex>
 
+//using namespace std;
 using std::thread;
 using std::string;
 using std::cout;
 using std::endl;
 using std::exception;
+using std::logic_error;
+using std::move;
+using std::ref;
+using std::mutex;
 
 
-// TODO:  ÔÚ´Ë´¦ÒıÓÃ³ÌĞòĞèÒªµÄÆäËûÍ·ÎÄ¼ş
 
 
 #endif  //STDAFX_H

@@ -18,7 +18,7 @@ class LiftOff : public Runnable {
     int countDown;
     int id;
 public:
-    LiftOff(int count, int ident = 0) :countDown(count), id(ident) {
+    explicit LiftOff(int count, int ident = 0) :countDown(count), id(ident) {
     }
     ~LiftOff() {
         cout << id << " completed" << endl;
