@@ -74,6 +74,13 @@ void my_task() {
     }
 }
 
+std::timed_mutex my_timed_mutex;
+void my_task(int val, char tag) {
+    while (!my_timed_mutex.try_lock_for(std::chrono::milliseconds(200))) {
+        cout << val;
+    }
+}
+
 int main() {
     //LiftOff launch(10);
     //launch.run();
