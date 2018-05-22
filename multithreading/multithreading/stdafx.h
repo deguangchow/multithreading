@@ -22,6 +22,11 @@ brief:		标准系统包含文件的包含文件
 
 //using namespace std;
 using std::thread;
+using std::this_thread::sleep_for;
+using std::this_thread::get_id;
+using std::chrono::milliseconds;
+using std::chrono::microseconds;
+
 using std::string;
 using std::cout;
 using std::endl;
@@ -29,7 +34,12 @@ using std::exception;
 using std::logic_error;
 using std::move;
 using std::ref;
+
 using std::mutex;
+using std::timed_mutex;
+using std::lock_guard;
+using std::unique_lock;
+using std::defer_lock;
 
 
 
