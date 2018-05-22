@@ -3,6 +3,7 @@ copyright:	deguangchow@qq.com
 data:		2018/05/03
 autor:		deguangchow
 brief:		定义控制台应用程序的入口点
+url:        https://blog.csdn.net/phiall/article/details/52385165
 */
 // multithreading.cpp : 定义控制台应用程序的入口点。
 //
@@ -66,10 +67,9 @@ void my_task() {
         if (my_mutex.try_lock()) {
             ++counter;
             my_mutex.unlock();
-            cout << "----线程id=" << std::this_thread::get_id() << " counter=" << counter << "\t" << endl;
-            //this_thread::sleep_for(chrono::microseconds(100));
+            cout << "++++ thread(" << std::this_thread::get_id() << ") counter=" << counter << "\t" << endl;
         } else {
-            cout << "++++线程id=" << std::this_thread::get_id() << " counter=" << counter << "\t" << endl;
+            cout << "0000 thread(" << std::this_thread::get_id() << ") counter=" << counter << "\t" << endl;
         }
     }
 }
