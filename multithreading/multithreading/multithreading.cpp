@@ -102,7 +102,7 @@ void print(int x) {
 mutex mutex_lock_gurad;
 void my_task_lock_gurad(int id) {
     //lock_guard创建局部变量my_lock，会在lock_guard的构造方法中对my_mutex加锁
-    lock_guard<mutex> lock_g(mutex_lock_gurad);
+    lock_guard<mutex> l_guard(mutex_lock_gurad);
     //由于自解锁的作用，下面的代码相当于临界区，执行过程不会被打断
     print(id);
     //运行结束时会析构my_lock，然后在析构函数中对my_mutex解锁
@@ -143,6 +143,23 @@ void finish_task(int v) {
     cout << "finished :" << v << endl;
     //析构，解锁
 }
+
+/*
+4.4 once_flag
+*/
+int value;
+once_flag value_once_flag;
+void setValue(int x) {
+    value = x;
+}
+
+void my_task_once_flag(int id) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    //使setValue函数只被第一次执行的线程执行
+    call_once(value_once_flag, setValue, id);
+}
+
 
 
 int main() {
@@ -244,7 +261,7 @@ int main() {
     //    pos.join();
     //}
     //cout << "Finished : the result of counter is " << counter << endl;
-    
+
     //thread threads[10];
     //char end_tag[] = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' };
     //for (int i = 0; i < 10; ++i) {
@@ -271,20 +288,27 @@ int main() {
     //    pos.join();
     //}
 
-    thread t1(my_task_unique_lock_2, 50, '1');
-    thread t2(my_task_unique_lock_2, 50, '2');
-    t1.join();
-    t2.join();
-    thread threads[5];
-    for (int i = 0; i < 5; ++i) {
-        threads[i] = thread(finish_task, i);
+    //thread t1(my_task_unique_lock_2, 50, '1');
+    //thread t2(my_task_unique_lock_2, 50, '2');
+    //t1.join();
+    //t2.join();
+    //thread threads[5];
+    //for (int i = 0; i < 5; ++i) {
+    //    threads[i] = thread(finish_task, i);
+    //}
+    //for (auto &pos : threads) {
+    //    pos.join();
+    //}
+
+
+    thread threads[10];
+    for (int i = 0; i < 10; ++i) {
+        threads[i] = thread(my_task_once_flag, i+1);
     }
     for (auto &pos : threads) {
         pos.join();
     }
-
-
-
+    cout << "Finished!! the result of value is : " << value << endl;
 
 
 

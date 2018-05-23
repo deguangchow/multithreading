@@ -40,6 +40,8 @@ using std::timed_mutex;
 using std::lock_guard;
 using std::unique_lock;
 using std::defer_lock;
+using std::once_flag;
+using std::call_once;
 
 
 
