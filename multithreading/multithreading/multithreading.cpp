@@ -201,6 +201,17 @@ void printAnInteger(future<int> &fut) {
     }
 }
 
+/*
+6. std::packaged_task
+*/
+int my_task_packaged(int from, int to) {
+    for (int i = from; i != to; --i) {
+        cout << i << endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    cout << "Finished!!" << endl;
+    return from - to;
+}
 
 
 
@@ -376,12 +387,42 @@ int main() {
     //prom1.set_value(20);
     //t2.join();
 
-    promise<int> prom;
-    future<int> fut = prom.get_future();
-    thread t1(getAnInteger, ref(prom));
-    thread t2(printAnInteger, ref(fut));
-    t1.join();
-    t2.join();
+    //promise<int> prom;
+    //future<int> fut = prom.get_future();
+    //thread t1(getAnInteger, ref(prom));
+    //thread t2(printAnInteger, ref(fut));
+    //t1.join();
+    //t2.join();
+
+    /*
+    6. std::package_task
+    */
+    ////设置 package_task，形式上类似于std::function
+    ////如 std::function<void(EventKeyboard::KeyCode, Event*)> onKeyPressed;
+    //packaged_task<int(int, int)> p_task(my_task_packaged);
+    ////获取与 package_task 共享状态相关联的 future 对象
+    //future<int> ret = p_task.get_future();
+    //thread th(move(p_task), 10, 0);  //创建一个线程完成计数任务
+    //int value = ret.get();
+    //cout << "the result of the future stage value is " << value << endl;
+    //th.join();
+
+    /*
+    6.1
+    */
+    //默认构造函数
+    packaged_task<int(int)> p_task_default;
+    //使用 lambda 表达式初始化一个 package_task 对象
+    packaged_task<int(int)> p_task_lambda([](int x) {return x * 3; });
+    p_task_default = move(p_task_lambda);
+    //获取与 package_task 共享状态相关联的 future 对象
+    future<int> ret = p_task_default.get_future();
+    thread(move(p_task_default), 30).detach(); //产生线程，调用被包装的任务
+    int value = ret.get();
+    cout << "The final result is " << value << endl;
+
+
+
 
 
 

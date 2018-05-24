@@ -14,6 +14,7 @@ brief:		标准系统包含文件的包含文件
 #include <stdio.h>
 #include <tchar.h>
 #include <thread>
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -50,7 +51,7 @@ using std::call_once;
 
 using std::future;
 using std::promise;
-
+using std::packaged_task;
 
 
 
