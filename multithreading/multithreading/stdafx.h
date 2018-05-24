@@ -19,6 +19,8 @@ brief:		标准系统包含文件的包含文件
 #include <windows.h>
 #include <assert.h>
 #include <mutex>
+#include <future>
+#include <exception>
 
 //using namespace std;
 using std::thread;
@@ -28,9 +30,12 @@ using std::chrono::milliseconds;
 using std::chrono::microseconds;
 
 using std::string;
+using std::ios;
+using std::cin;
 using std::cout;
 using std::endl;
 using std::exception;
+using std::current_exception;
 using std::logic_error;
 using std::move;
 using std::ref;
@@ -42,6 +47,9 @@ using std::unique_lock;
 using std::defer_lock;
 using std::once_flag;
 using std::call_once;
+
+using std::future;
+using std::promise;
 
 
 
