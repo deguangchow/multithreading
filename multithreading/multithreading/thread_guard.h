@@ -6,6 +6,7 @@
 ///    \author   zhoudeguang
 ///    \version  1.0
 ///    \2018/05/07
+#pragma once
 #ifndef THREAD_GUARD_H
 #define THREAD_GUARD_H
 
@@ -40,6 +41,26 @@ void func() {
     catch (...) {
         throw;
     }
+}
+
+int main_thread_guard() {
+    try {
+        func();
+    } catch (const exception &e) {
+        cout << e.what() << endl;
+    }
+
+    auto lambda_fun = [](string text)->void {
+        cout << "hello world, " << text << endl;
+    };
+    thread t(lambda_fun, "lee");
+    if (t.joinable()) {
+        t.detach();
+    }
+    assert(!t.joinable());
+
+
+    return 0;
 }
 
 #endif

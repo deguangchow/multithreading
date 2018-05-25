@@ -19,6 +19,15 @@
     <Filter Include="function">
       <UniqueIdentifier>{b636826a-d402-4017-952f-b76529b247d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mutex">
+      <UniqueIdentifier>{1cb40453-f0b7-4921-bc7c-879a8b27b576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="promise">
+      <UniqueIdentifier>{258da518-858d-4087-8d42-0051f79f9671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="packaged_task">
+      <UniqueIdentifier>{65160263-12bd-434e-9d4f-209b914c1c6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -41,6 +50,15 @@
     </ClInclude>
     <ClInclude Include="function_test.h">
       <Filter>function</Filter>
+    </ClInclude>
+    <ClInclude Include="mutex_test.h">
+      <Filter>mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="promise_test.h">
+      <Filter>promise</Filter>
+    </ClInclude>
+    <ClInclude Include="package_task_test.h">
+      <Filter>packaged_task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

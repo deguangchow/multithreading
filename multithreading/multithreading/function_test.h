@@ -6,6 +6,7 @@
 ///    \author   zhoudeguang
 ///    \version  1.0
 ///    \2018/05/25
+#pragma once
 #ifndef FUNCTION_TEST
 #define FUNCTION_TEST
 
