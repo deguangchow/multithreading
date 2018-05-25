@@ -22,6 +22,7 @@ brief:		标准系统包含文件的包含文件
 #include <mutex>
 #include <future>
 #include <exception>
+#include <functional>
 
 //using namespace std;
 using std::thread;
@@ -52,8 +53,10 @@ using std::call_once;
 using std::future;
 using std::promise;
 using std::packaged_task;
+using std::function;
+using std::bind;
+using std::placeholders::_1;
 
 
 
 #endif  //STDAFX_H
-
