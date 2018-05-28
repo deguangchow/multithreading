@@ -55,6 +55,7 @@ using std::future;
 using std::future_status;
 using std::shared_future;
 using std::async;
+using std::launch;
 using std::promise;
 using std::packaged_task;
 using std::function;

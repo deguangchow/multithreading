@@ -44,6 +44,14 @@ bool do_task(int x) {
     return x % 2;
 }
 
+//7.4 std::launch::async、std::launch::deferred
+void task_launch(char c, int ms) {
+    for (int i = 0; i < 10; ++i) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+        cout << c;
+    }
+}
+
 int main_future_test() {
     {   //7.std::future
         //异步调用判断999999是不是质数
@@ -125,6 +133,23 @@ int main_future_test() {
         ret = fut.get();
         cout << endl;
         cout << "9999999999 " << (ret ? "is" : "is not") << " a prime." << endl;
+    }
+    {   //7.4 std::launch::async、std::launch::deferred
+        cout << "with launch::async:" << endl;
+        future<void> foo = async(launch::async, task_launch, '*', 100);
+        future<void> bar = async(launch::async, task_launch, '#', 200);
+        // async "get" (wait for foo and bar to be ready)
+        foo.get();
+        bar.get();
+        cout << endl << endl;
+
+        cout << "with launch::deferred:" << endl;
+        foo = async(launch::deferred, task_launch, '*', 100);
+        bar = async(launch::deferred, task_launch, '#', 200);
+        // deferred "get"(perform the actual calls)
+        foo.get();
+        bar.get();
+        cout << endl;
     }
 
     return 0;
