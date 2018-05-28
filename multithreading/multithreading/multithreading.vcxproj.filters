@@ -25,6 +25,9 @@
     <Filter Include="shared state">
       <UniqueIdentifier>{65160263-12bd-434e-9d4f-209b914c1c6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="condition_variable">
+      <UniqueIdentifier>{eb5b63c5-f352-4f4c-a3e0-4dcede673378}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -59,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="future_test.h">
       <Filter>shared state</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_variable_test.h">
+      <Filter>condition_variable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

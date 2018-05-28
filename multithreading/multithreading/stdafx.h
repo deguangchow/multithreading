@@ -62,6 +62,7 @@ using std::function;
 using std::bind;
 using std::placeholders::_1;
 
+using std::condition_variable;
 
 
 #endif  //STDAFX_H

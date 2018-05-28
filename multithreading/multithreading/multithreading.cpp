@@ -14,6 +14,7 @@
 #include "package_task_test.h"
 #include "function_test.h"
 #include "future_test.h"
+#include "condition_variable_test.h"
 
 int main() {
     //main_lift_off();
@@ -22,7 +23,8 @@ int main() {
     //main_promise_test();
     //main_packaged_task_test();
     //main_function_test();
-    main_future_test();
+    //main_future_test();
+    main_condition_variable();
 
     system("pause");
     return 0;
