@@ -23,6 +23,7 @@ brief:		标准系统包含文件的包含文件
 #include <future>
 #include <exception>
 #include <functional>
+#include <ctime>
 
 //using namespace std;
 using std::thread;
@@ -51,6 +52,9 @@ using std::once_flag;
 using std::call_once;
 
 using std::future;
+using std::future_status;
+using std::shared_future;
+using std::async;
 using std::promise;
 using std::packaged_task;
 using std::function;

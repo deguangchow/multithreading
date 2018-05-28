@@ -13,14 +13,16 @@
 #include "promise_test.h"
 #include "package_task_test.h"
 #include "function_test.h"
+#include "future_test.h"
 
 int main() {
-    main_lift_off();
+    //main_lift_off();
     //main_thread_guard();
     //main_mutex_test();
     //main_promise_test();
     //main_packaged_task_test();
     //main_function_test();
+    main_future_test();
 
     system("pause");
     return 0;

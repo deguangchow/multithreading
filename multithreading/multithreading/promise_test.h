@@ -31,7 +31,8 @@ void printShareStateValue() {
 void getAnInteger(promise<int> &prom) {
     int x;
     cout << "input an integer : ";
-    //产生异常
+    //设置如试图从不能解析为整数的字符串里想要读一个整数等，顺便说下eof也会造成failbit被置位
+    //则产生异常
     cin.exceptions(ios::failbit);
     try {
         cin >> x;
