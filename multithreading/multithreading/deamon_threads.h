@@ -1,4 +1,4 @@
-///    Copyright (C) 2018 cpp_prime5 DG.C
+﻿///    Copyright (C) 2018 cpp_prime5 DG.C
 ///        http://www.futuresoft.com.cn
 ///
 ///    \brief    分离线程：守护线程

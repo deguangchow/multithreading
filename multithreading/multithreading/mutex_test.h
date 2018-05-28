@@ -1,4 +1,4 @@
-///    Copyright (C) 2018 cpp_prime5 DG.C
+﻿///    Copyright (C) 2018 cpp_prime5 DG.C
 ///        http://www.futuresoft.com.cn
 ///
 ///    \brief    add some samples for std::mutex. 线程间通信：互斥量的使用例子。

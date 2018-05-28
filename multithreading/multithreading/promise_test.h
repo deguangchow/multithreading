@@ -1,4 +1,4 @@
-///    Copyright (C) 2018 cpp_prime5 DG.C
+﻿///    Copyright (C) 2018 cpp_prime5 DG.C
 ///        http://www.futuresoft.com.cn
 ///
 ///    \brief    promise test. 线程间通信：共享状态（shared state）的例子。

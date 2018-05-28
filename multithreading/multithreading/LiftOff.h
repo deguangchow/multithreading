@@ -1,9 +1,11 @@
-/*
-copyright:	deguangchow@qq.com
-data:		2018/05/03
-autor:		deguangchow
-brief:		火箭发射倒计时类
-*/
+﻿///    Copyright (C) 2018 cpp_prime5 DG.C
+///        http://www.futuresoft.com.cn
+///
+///    \brief    火箭发射倒计时类
+///
+///    \author   zhoudeguang
+///    \version  1.0
+///    \2018/05/28
 #pragma once
 #ifndef LIFTOFF_H
 #define LIFTOFF_H
@@ -35,7 +37,7 @@ public:
 
 int main_lift_off() {
     {
-        LiftOff launch(10);
+        LiftOff launch(10, 1);
         launch.run();
     }
 
@@ -46,7 +48,7 @@ int main_lift_off() {
             为了作为thread的构造参数，类的成员函数名必须唯一。
             在下例中，如果world1()和world2()函数名都是world，则编译出错，这是因为名字解析发生在参数匹配之前。
             */
-            LiftOff l = LiftOff(10);
+            LiftOff l = LiftOff(10, 2);
             thread t(&LiftOff::run, &l);
             //thread t0(&LiftOff::run, &l);
             //以lambda对象作为参数
