@@ -16,7 +16,7 @@
 int my_task_packaged(int from, int to) {
     for (int i = from; i != to; --i) {
         cout << i << endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        sleep_for(seconds(1));
     }
     cout << "Finished!!" << endl;
     return from - to;

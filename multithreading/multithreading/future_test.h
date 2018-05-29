@@ -47,7 +47,7 @@ bool do_task(int x) {
 //7.4 std::launch::async、std::launch::deferred
 void task_launch(char c, int ms) {
     for (int i = 0; i < 10; ++i) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+        sleep_for(milliseconds(ms));
         cout << c;
     }
 }
@@ -60,7 +60,7 @@ int main_future_test() {
         //由于上面代码中判断素数的方法对于比较大的数，将耗费较多时间
         //开始判断共享状态是否变为了ready，等待
         cout << "waiting for ready..." << endl;
-        std::chrono::milliseconds span(100);
+        milliseconds span(100);
         //每100ms内阻塞等待，如果超时输出*，并继续等待，否则结束while
         while (fut.wait_for(span) == future_status::timeout) {
             cout << "*";
@@ -112,7 +112,7 @@ int main_future_test() {
         cout << "wait_for example :" << endl;
         //异步调用判断99999999999是不是质数
         future<bool> fut = async(is_prime, 9999999999);
-        std::chrono::milliseconds span(100);
+        milliseconds span(100);
         while (fut.wait_for(span) == future_status::timeout) {
             cout << "*";
         }
@@ -123,8 +123,8 @@ int main_future_test() {
         cout << "wait_until example :" << endl;
         fut = async(is_prime, 9999999999);
         cout << "waiting for ready..." << endl;
-        std::chrono::system_clock::duration dur(200);
-        std::chrono::time_point<std::chrono::system_clock, std::chrono::system_clock::duration> t_point(dur);
+        system_clock::duration dur(200);
+        time_point<system_clock, system_clock::duration> t_point(dur);
         //截止到系统时间当前点+dur，如果依然共享状态不是ready，打出timeout
         if (fut.wait_until(t_point) == future_status::timeout) {
             cout << "timeout" << endl;

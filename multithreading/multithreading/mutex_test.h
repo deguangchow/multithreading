@@ -28,7 +28,7 @@ void exec_proc1(int n) {
     for (int i = 0; i < 5; ++i) {
         cout << "pass value, executing thread " << n << endl;
         //阻止线程运行到10毫秒
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        sleep_for(milliseconds(10));
     }
 }
 
@@ -36,7 +36,7 @@ void exec_proc2(int &n) {
     for (int i = 0; i < 5; ++i) {
         cout << "pass reference, executing thread " << n << endl;
         ++n;
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        sleep_for(milliseconds(10));
     }
 }
 
@@ -45,9 +45,9 @@ void exec_proc2(int &n) {
 */
 void exec_produce(int duration) {
     //阻止线程运行到duration秒
-    std::this_thread::sleep_for(std::chrono::seconds(duration));
-    //std::this_thread::get_id（）获取当前线程id
-    cout << "exec_produce thread " << std::this_thread::get_id() << " has sleeped " << duration << " seconds" << endl;
+    sleep_for(seconds(duration));
+    //get_id（）获取当前线程id
+    cout << "exec_produce thread " << get_id() << " has sleeped " << duration << " seconds" << endl;
 }
 
 /*
@@ -63,9 +63,9 @@ void my_task() {
         if (mutex1.try_lock()) {
             ++counter;
             mutex1.unlock();
-            cout << "++++ thread(" << std::this_thread::get_id() << ") counter=" << counter << "\t" << endl;
+            cout << "++++ thread(" << get_id() << ") counter=" << counter << "\t" << endl;
         } else {
-            cout << "0000 thread(" << std::this_thread::get_id() << ") counter=" << counter << "\t" << endl;
+            cout << "0000 thread(" << get_id() << ") counter=" << counter << "\t" << endl;
         }
     }
 }
@@ -78,11 +78,11 @@ void my_task_time(int val, char tag) {
     //每200ms尝试获取锁，如果获取到跳出while循环，否则输出一次线程编号
     //比如0-200ms，在200ms之前如果获取不到锁，则线程阻塞，时间到了200ms如果取得了锁，
     //则加锁，否则返回false
-    while (!t_mutex.try_lock_for(std::chrono::milliseconds(200))) {
+    while (!t_mutex.try_lock_for(milliseconds(200))) {
         cout << val;
     }
     //成功取得锁，然后将线程sleep到1000ms
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    sleep_for(milliseconds(1000));
     cout << tag << endl;
     t_mutex.unlock();
 }
@@ -93,7 +93,7 @@ void my_task_time(int val, char tag) {
 void print(int x) {
     cout << "value is " << x;
     cout << endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    sleep_for(milliseconds(200));
 }
 
 mutex mutex_lock_gurad;
@@ -152,7 +152,7 @@ void setValue(int x) {
 }
 
 void my_task_once_flag(int id) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    sleep_for(milliseconds(1000));
 
     //使setValue函数只被第一次执行的线程执行
     call_once(value_once_flag, setValue, id);

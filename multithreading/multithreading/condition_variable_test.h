@@ -1,9 +1,11 @@
-/*
-copyright:  deguangchow@qq.com
-data:       2018/05/28
-autor:      deguangchow
-brief:      Ïß³Ì¼äÍ¨ĞÅ£ºÌõ¼ş±äÁ¿
-*/
+ï»¿///    Copyright (C) 2018 cpp_prime5 DG.C
+///        http://www.futuresoft.com.cn
+///
+///    \brief    çº¿ç¨‹é—´é€šä¿¡ï¼šæ¡ä»¶å˜é‡
+///
+///    \author   zhoudeguang
+///    \version  1.0
+///    \2018/05/29
 #pragma once
 #ifndef CONDITION_VARIABLE_TEST
 #define CONDITION_VARIABLE_TEST
@@ -11,18 +13,18 @@ brief:      Ïß³Ì¼äÍ¨ĞÅ£ºÌõ¼ş±äÁ¿
 /*
 11. std::condition_variable
 */
-//È«¾Ö±äÁ¿
+//å…¨å±€å˜é‡
 mutex g_mtx;
-//È«¾ÖÌõ¼ş±äÁ¿
+//å…¨å±€æ¡ä»¶å˜é‡
 condition_variable g_cv;
-//È«¾Ö±êÖ¾Î»
+//å…¨å±€æ ‡å¿—ä½
 bool g_ready = false;
 
 void do_print_id(int id) {
     unique_lock<mutex> lck(g_mtx);
-    // Èç¹û±êÖ¾Î»²»Îª true£¬ÔòµÈ´ı¡­¡­
-    // µ±Ç°Ïß³Ì±»×èÈû£¬µ±È«¾Ö±êÖ¾Î»±äÎª true Ö®ºó£¬
-    // Ïß³Ì±»»½ĞÑ£¬¼ÌĞøÍùÏÂÖ´ĞĞ´òÓ¡Ïß³Ì±àºÅ id.
+    // å¦‚æœæ ‡å¿—ä½ä¸ä¸º trueï¼Œåˆ™ç­‰å¾…â€¦â€¦
+    // å½“å‰çº¿ç¨‹è¢«é˜»å¡ï¼Œå½“å…¨å±€æ ‡å¿—ä½å˜ä¸º true ä¹‹åï¼Œ
+    // çº¿ç¨‹è¢«å”¤é†’ï¼Œç»§ç»­å¾€ä¸‹æ‰§è¡Œæ‰“å°çº¿ç¨‹ç¼–å· id.
     while (!g_ready) {
         g_cv.wait(lck);
     }
@@ -31,44 +33,52 @@ void do_print_id(int id) {
 
 void go() {
     unique_lock<mutex> lck(g_mtx);
-    // ÉèÖÃÈ«¾Ö±êÖ¾Î»Îª true.
+    // è®¾ç½®å…¨å±€æ ‡å¿—ä½ä¸º true.
     g_ready = true;
-    // »½ĞÑËùÓĞÏß³Ì.
+    // å”¤é†’æ‰€æœ‰çº¿ç¨‹.
     g_cv.notify_all();
 }
 
-//11.1 std::condition_variable::wait, notify_one 
-int g_cargo = 0;    //È«¾Ö±äÁ¿£º»õÎï
-// ¿É×°ÔË
+//11.1 std::condition_variable::wait, notify_one
+int g_cargo = 0;    //å…¨å±€å˜é‡ï¼šè´§ç‰©
+// å¯è£…è¿
 bool shipment_available() {
     return g_cargo != 0;
 }
 
-// Ïû·ÑÕßÏß³Ì
+// æ¶ˆè´¹è€…çº¿ç¨‹
 void consume(int n) {
     for (int i = 0; i < n; ++i) {
         unique_lock<mutex> lck(g_mtx);
-        // Ö»ÓĞµ± shipment_available() ·µ»ØÎª false Ê±µ÷ÓÃ wait() ²Å»á×èÈûµ±Ç°Ïß³Ì£¬
-        // ²¢ÇÒÔÚÊÕµ½ÆäËûÏß³ÌµÄÍ¨ÖªºóÖ»ÓĞµ± shipment_available() ·µ»Ø true Ê±²Å»á±»½â³ı×èÈû
+        // åªæœ‰å½“ shipment_available() è¿”å›ä¸º false æ—¶è°ƒç”¨ wait() æ‰ä¼šé˜»å¡å½“å‰çº¿ç¨‹ï¼Œ
+        // å¹¶ä¸”åœ¨æ”¶åˆ°å…¶ä»–çº¿ç¨‹çš„é€šçŸ¥ååªæœ‰å½“ shipment_available() è¿”å› true æ—¶æ‰ä¼šè¢«è§£é™¤é˜»å¡
         g_cv.wait(lck, shipment_available);
         cout << g_cargo << endl;
         g_cargo = 0;
     }
 }
 
+//11.2 std::condition_variable::wait_for()
+int g_value_input;
+
+void task_input() {
+    cin >> g_value_input;
+    g_cv.notify_one();
+}
+
 int main_condition_variable() {
     {   //11. std::condition_variable
         thread threads[10];
-        // ´´½¨10¸öÏß³Ì£¬ÓÉÓÚÈ«¾Ö±êÖ¾readyÎªfalse£¬
-        // ËùÒÔËùÓĞÏß³Ì´´½¨Íê³Éºó¾ù»á´ÓÔËĞĞ×´Ì¬×ªÎª×èÈûÌ¬
+        // åˆ›å»º10ä¸ªçº¿ç¨‹ï¼Œç”±äºå…¨å±€æ ‡å¿—readyä¸ºfalseï¼Œ
+        // æ‰€ä»¥æ‰€æœ‰çº¿ç¨‹åˆ›å»ºå®Œæˆåå‡ä¼šä»è¿è¡ŒçŠ¶æ€è½¬ä¸ºé˜»å¡æ€
         for (int i = 0; i < 10; ++i) {
             threads[i] = thread(do_print_id, i);
         }
 
-        // ĞŞ¸Ä ready ±êÖ¾£¬²¢Í¨ÖªËùÓĞÏß³Ì¿ÉÒÔ´Ó×èÈûÌ¬×ªÎªÔËĞĞÌ¬
-        // µ«ÏÔÈ»10¸öÏß³ÌÒ²ÊÇÔÚÄ³Ò»¿ÌÖ»ÄÜÔËĞĞÒ»¸ö
-        cout << "wait 1 second¡­¡­" << endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        // ä¿®æ”¹ ready æ ‡å¿—ï¼Œå¹¶é€šçŸ¥æ‰€æœ‰çº¿ç¨‹å¯ä»¥ä»é˜»å¡æ€è½¬ä¸ºè¿è¡Œæ€
+        // ä½†æ˜¾ç„¶10ä¸ªçº¿ç¨‹ä¹Ÿæ˜¯åœ¨æŸä¸€åˆ»åªèƒ½è¿è¡Œä¸€ä¸ª
+        cout << "wait 1 secondâ€¦â€¦" << endl;
+        sleep_for(seconds(1));
         go();
 
         for (auto &pos : threads) {
@@ -76,13 +86,13 @@ int main_condition_variable() {
         }
     }
     {   //11.1 std::condition_variable::wait, notify_one
-        thread consumer_thread(consume, 10);    //Ïû·ÑÕßÏß³Ì
+        thread consumer_thread(consume, 10);    //æ¶ˆè´¹è€…çº¿ç¨‹
 
-        // Ö÷Ïß³ÌÎªÉú²úÕßÏß³Ì£¬Éú²ú 10 ¸öÎïÆ·
+        // ä¸»çº¿ç¨‹ä¸ºç”Ÿäº§è€…çº¿ç¨‹ï¼Œç”Ÿäº§ 10 ä¸ªç‰©å“
         for (int i = 0; i < 10; ++i) {
             while (shipment_available()) {
-                // yield() º¯Êı¿ÉÒÔÓÃÀ´½«µ÷ÓÃÕßÏß³ÌÌø³öÔËĞĞ×´Ì¬£¬ÖØĞÂ½»¸ø²Ù×÷ÏµÍ³½øĞĞµ÷¶È
-                std::this_thread::yield();
+                // yield() å‡½æ•°å¯ä»¥ç”¨æ¥å°†è°ƒç”¨è€…çº¿ç¨‹è·³å‡ºè¿è¡ŒçŠ¶æ€ï¼Œé‡æ–°äº¤ç»™æ“ä½œç³»ç»Ÿè¿›è¡Œè°ƒåº¦
+                yield();
             }
             unique_lock<mutex> lck(g_mtx);
             g_cargo = i + 1;
@@ -91,7 +101,20 @@ int main_condition_variable() {
 
         consumer_thread.join();
     }
+    {   //11.2 std::condition_variable::wait_for()
+        // åˆ›å»ºä¸€ä¸ªå­çº¿ç¨‹æ‰§è¡Œ task_input
+        thread th(task_input);
+        mutex mtx;
+        unique_lock<mutex> lck(mtx);
+        while (g_cv.wait_for(lck, seconds(1)) == cv_status::timeout) {
+            cout << '.';
+            cout.flush();
+        }
 
+        cout << "the entered integer is : " << g_value_input << endl;
+
+        th.join();
+    }
     return 0;
 }
 

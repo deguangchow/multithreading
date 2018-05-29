@@ -29,8 +29,13 @@ brief:		标准系统包含文件的包含文件
 using std::thread;
 using std::this_thread::sleep_for;
 using std::this_thread::get_id;
+using std::this_thread::yield;
+
 using std::chrono::milliseconds;
 using std::chrono::microseconds;
+using std::chrono::seconds;
+using std::chrono::time_point;
+using std::chrono::system_clock;
 
 using std::string;
 using std::ios;
@@ -63,6 +68,7 @@ using std::bind;
 using std::placeholders::_1;
 
 using std::condition_variable;
+using std::cv_status;
 
 
 #endif  //STDAFX_H
