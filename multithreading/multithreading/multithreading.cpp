@@ -17,13 +17,16 @@
 #include "condition_variable_test.h"
 
 int main() {
-    //main_lift_off();
-    //main_thread_guard();
-    //main_mutex_test();
-    //main_promise_test();
-    //main_packaged_task_test();
-    //main_function_test();
-    //main_future_test();
+#if 0
+    main_lift_off();
+    main_thread_guard();
+    main_mutex_test();
+    main_promise_test();
+    main_packaged_task_test();
+    main_function_test();
+    main_future_test();
+#endif
+
     main_condition_variable();
 
     system("pause");

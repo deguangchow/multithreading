@@ -85,7 +85,25 @@ void producer(int id) {
     g_cv.notify_one();
 }
 
+//11.4 std::notify_all_at_thread_exit(condition_variable &cv, unique_lock<T> lck)
+void task_output(int id) {
+    unique_lock<mutex> lck(g_mtx);
+    while (!g_ready) {
+        g_cv.wait(lck);
+    }
+    cout << "thread " << id << endl;
+}
+
+void go_exit() {
+    unique_lock<mutex> lck(g_mtx);
+    //g_cv.notify_all();
+    notify_all_at_thread_exit(g_cv, move(lck));
+    g_ready = true;
+}
+
+
 int main_condition_variable() {
+#if 0
     {   //11. std::condition_variable
         thread threads[10];
         // 创建10个线程，由于全局标志ready为false，
@@ -107,7 +125,7 @@ int main_condition_variable() {
     {   //11.1 std::condition_variable::wait, notify_one
         thread consumer_thread(consume, 10);    //消费者线程
 
-        // 主线程为生产者线程，生产 10 个物品
+                                                // 主线程为生产者线程，生产 10 个物品
         for (int i = 0; i < 10; ++i) {
             while (shipment_available()) {
                 // yield() 函数可以用来将调用者线程跳出运行状态，重新交给操作系统进行调度
@@ -136,7 +154,7 @@ int main_condition_variable() {
     }
     {   //11.3 std::condition_variable::wait_until()
         thread consumers[10], producers[10];
-        
+
         // create 10 consumers and 10 producers
         for (int i = 0; i < 10; ++i) {
             consumers[i] = thread(consumer);
@@ -150,6 +168,20 @@ int main_condition_variable() {
         }
         for (int i = 0; i < 10; ++i) {
             consumers[i].join();
+        }
+    }
+#endif
+    {   //11.4 std::notify_all_at_thread_exit(condition_variable &cv, unique_lock<T> lck)
+        thread threads[10];
+        for (int i = 0; i < 10; ++i) {
+            threads[i] = thread(task_output, i);
+        }
+
+        // 创建子线程执行 go_exit()，并运行完成之后自己退出
+        thread(go_exit).detach();
+
+        for (auto &pos : threads) {
+            pos.join();
         }
     }
     return 0;
