@@ -16,6 +16,7 @@ brief:		标准系统包含文件的包含文件
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <windows.h>
 #include <assert.h>
@@ -24,6 +25,8 @@ brief:		标准系统包含文件的包含文件
 #include <exception>
 #include <functional>
 #include <ctime>
+#include <atomic>
+#include <vector>
 
 //using namespace std;
 using std::thread;
@@ -38,6 +41,7 @@ using std::chrono::time_point;
 using std::chrono::system_clock;
 
 using std::string;
+using std::stringstream;
 using std::ios;
 using std::cin;
 using std::cout;
@@ -69,6 +73,13 @@ using std::placeholders::_1;
 
 using std::condition_variable;
 using std::cv_status;
+
+using std::atomic;
+using std::atomic_flag;
+using std::memory_order_acquire;
+using std::memory_order_release;
+
+using std::vector;
 
 
 #endif  //STDAFX_H

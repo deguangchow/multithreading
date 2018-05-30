@@ -26,9 +26,10 @@ int main() {
     main_packaged_task_test();
     main_function_test();
     main_future_test();
+    main_condition_variable();
 #endif
 
-    main_condition_variable();
+    main_atomic_flag();
 
     system("pause");
     return 0;
