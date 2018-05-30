@@ -66,6 +66,25 @@ void task_input() {
     g_cv.notify_one();
 }
 
+//11.3 std::condition_variable::wait_until()
+int cargo = 0;
+void consumer() {
+    unique_lock<mutex> lck(g_mtx);
+    while (cargo == 0) {
+        system_clock::duration dur(200);
+        time_point<system_clock, system_clock::duration> t_point(dur);
+        g_cv.wait_until(lck, t_point);  //g_cv.wait(lck);
+    }
+    cout << cargo << endl;
+    cargo = 0;
+}
+
+void producer(int id) {
+    unique_lock<mutex> lck(g_mtx);
+    cargo = id;
+    g_cv.notify_one();
+}
+
 int main_condition_variable() {
     {   //11. std::condition_variable
         thread threads[10];
@@ -114,6 +133,24 @@ int main_condition_variable() {
         cout << "the entered integer is : " << g_value_input << endl;
 
         th.join();
+    }
+    {   //11.3 std::condition_variable::wait_until()
+        thread consumers[10], producers[10];
+        
+        // create 10 consumers and 10 producers
+        for (int i = 0; i < 10; ++i) {
+            consumers[i] = thread(consumer);
+        }
+        for (int i = 0; i < 10; ++i) {
+            producers[i] = thread(producer, i + 1);
+        }
+
+        for (int i = 0; i < 10; ++i) {
+            producers[i].join();
+        }
+        for (int i = 0; i < 10; ++i) {
+            consumers[i].join();
+        }
     }
     return 0;
 }
