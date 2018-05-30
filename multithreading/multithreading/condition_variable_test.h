@@ -7,8 +7,8 @@
 ///    \version  1.0
 ///    \2018/05/29
 #pragma once
-#ifndef CONDITION_VARIABLE_TEST
-#define CONDITION_VARIABLE_TEST
+#ifndef CONDITION_VARIABLE_TEST_H
+#define CONDITION_VARIABLE_TEST_H
 
 /*
 11. std::condition_variable
@@ -188,4 +188,4 @@ int main_condition_variable() {
 }
 
 
-#endif  //CONDITION_VARIABLE_TEST
+#endif  //CONDITION_VARIABLE_TEST_H

@@ -15,6 +15,7 @@
 #include "function_test.h"
 #include "future_test.h"
 #include "condition_variable_test.h"
+#include "atomic_flag_test.h"
 
 int main() {
 #if 0

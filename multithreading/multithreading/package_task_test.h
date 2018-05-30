@@ -7,8 +7,8 @@
 ///    \version  1.0
 ///    \2018/05/25
 #pragma once
-#ifndef PACKAGE_TASK_TEST
-#define PACKAGE_TASK_TEST
+#ifndef PACKAGE_TASK_TEST_H
+#define PACKAGE_TASK_TEST_H
 
 /*
 6. std::packaged_task
@@ -100,5 +100,5 @@ int main_packaged_task_test() {
     return 0;
 }
 
-#endif  //PACKAGE_TASK_TEST
+#endif  //PACKAGE_TASK_TEST_H
 

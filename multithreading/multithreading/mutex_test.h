@@ -7,8 +7,8 @@
 ///    \version  1.0
 ///    \2018/05/25
 #pragma once
-#ifndef MUTEX_TEST
-#define MUTEX_TEST
+#ifndef MUTEX_TEST_H
+#define MUTEX_TEST_H
 
 void hello() {
     cout << "hello" << endl;
@@ -284,6 +284,6 @@ int main_mutex_test() {
     return 0;
 }
 
-#endif  //MUTEX_TEST
+#endif  //MUTEX_TEST_H
 
 

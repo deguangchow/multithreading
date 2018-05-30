@@ -7,8 +7,8 @@
 ///    \version  1.0
 ///    \2018/05/25
 #pragma once
-#ifndef PROMISE_TEST
-#define PROMISE_TEST
+#ifndef PROMISE_TEST_H
+#define PROMISE_TEST_H
 
 /*
 5. std::promise
@@ -93,5 +93,5 @@ int main_promise_test() {
 
     return 0;
 }
-#endif  //PROMISE_TEST
+#endif  //PROMISE_TEST_H
 

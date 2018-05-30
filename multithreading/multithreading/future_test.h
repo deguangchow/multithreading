@@ -7,8 +7,8 @@
 ///    \version  1.0
 ///    \2018/05/28
 #pragma once
-#ifndef FUTURE_TEST
-#define FUTURE_TEST
+#ifndef FUTURE_TEST_H
+#define FUTURE_TEST_H
 
 /*
 7.std::future
@@ -155,5 +155,5 @@ int main_future_test() {
     return 0;
 }
 
-#endif  //FUTURE_TEST
+#endif  //FUTURE_TEST_H
 

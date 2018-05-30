@@ -7,8 +7,8 @@
 ///    \version  1.0
 ///    \2018/05/25
 #pragma once
-#ifndef FUNCTION_TEST
-#define FUNCTION_TEST
+#ifndef FUNCTION_TEST_H
+#define FUNCTION_TEST_H
 
 //std::function
 function<int(int)> Functional;
@@ -70,5 +70,5 @@ int main_function_test() {
     return 0;
 }
 
-#endif  //FUNCTION_TEST
+#endif  //FUNCTION_TEST_H
 

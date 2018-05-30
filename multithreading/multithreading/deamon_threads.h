@@ -6,8 +6,8 @@
 ///    \author   zhoudeguang
 ///    \version  1.0
 ///    \2018/05/11
-#ifndef DEAMON_THREADS
-#define DEAMON_THREADS
+#ifndef DEAMON_THREADS_H
+#define DEAMON_THREADS_H
 
-#endif  //DEAMON_THREADS
+#endif  //DEAMON_THREADS_H
 
