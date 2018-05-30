@@ -1,7 +1,7 @@
 ﻿///    Copyright (C) 2018 cpp_prime5 DG.C
 ///        http://www.futuresoft.com.cn
 ///
-///    \brief    线程间通信：原子操作（std::atomic_flag）
+///    \brief    线程间通信：类型 bool 的原子变量（std::atomic_flag）
 ///
 ///    \author   zhoudeguang
 ///    \version  1.0
@@ -72,7 +72,7 @@ void task_atomic_flag_clear(int id) {
 }
 
 
-int main_atomic_flag() {
+int main_atomic_flag_test() {
 #if 0
     {   //13. std::atomic_flag
         vector<thread> vctThreads;

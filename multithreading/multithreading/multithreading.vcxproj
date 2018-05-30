@@ -145,6 +145,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="atomic_test.h" />
     <ClInclude Include="atomic_flag_test.h" />
     <ClInclude Include="condition_variable_test.h" />
     <ClInclude Include="deamon_threads.h" />

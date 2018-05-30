@@ -72,6 +72,9 @@
     <ClInclude Include="atomic_flag_test.h">
       <Filter>atomic_flag</Filter>
     </ClInclude>
+    <ClInclude Include="atomic_test.h">
+      <Filter>atomic_flag</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
