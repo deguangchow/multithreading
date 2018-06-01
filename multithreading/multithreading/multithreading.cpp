@@ -17,6 +17,7 @@
 #include "condition_variable_test.h"
 #include "atomic_flag_test.h"
 #include "atomic_test.h"
+#include "application_example.h"
 
 int main() {
 #if 0
@@ -29,9 +30,10 @@ int main() {
     main_future_test();
     main_condition_variable();
     main_atomic_flag_test();
+    main_atomic_test();
 #endif
 
-    main_atomic_test();
+    main_application_example();
 
     system("pause");
     return 0;

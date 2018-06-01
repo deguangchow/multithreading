@@ -31,6 +31,9 @@
     <Filter Include="atomic_flag">
       <UniqueIdentifier>{d75979d8-eaf3-4c76-9fe8-d81589def177}</UniqueIdentifier>
     </Filter>
+    <Filter Include="application example">
+      <UniqueIdentifier>{701c5fbd-20ba-4f81-a144-33d81ce8bf94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="atomic_test.h">
       <Filter>atomic_flag</Filter>
+    </ClInclude>
+    <ClInclude Include="application_example.h">
+      <Filter>application example</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
