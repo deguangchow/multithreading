@@ -169,7 +169,8 @@ void ConsumeTask(int id) {
             int item = ConsumeItem(&gItemRepository);
             ++(gItemRepository.item_counter);
             cout << "---- Consumer thread " << id << " is consuming the " << item << "^th item..." << endl;
-        } else {
+        }
+        else {
             ready_to_exit = true;
         }
         //lock.unlock();
@@ -177,6 +178,7 @@ void ConsumeTask(int id) {
             break;
         }
     }
+
     cout << "<<<< Consumer thread " << id << " is exiting..." << endl;
 }
 
@@ -206,7 +208,7 @@ typedef struct ItemRepository ItemRepository;
 
 void ProduceItem(int id, ItemRepository *ir, int item) {
     unique_lock<mutex> lock(ir->mtx);
-    while (((ir->pos_produce + 1) % KItemRepositorySize) == ir->pos_consume) {
+    while (((ir->pos_produce + 1) % (KItemRepositorySize)) == ir->pos_consume) {
         cout << "==== Producer thread " << id << " is waiting for an empty slot..." << endl;
         (ir->cv_not_full).wait(lock);
     }
