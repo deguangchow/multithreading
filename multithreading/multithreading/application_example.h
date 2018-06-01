@@ -185,7 +185,6 @@ void InitRepository(ItemRepository *ir) {
     ir->pos_consume = 0;
     ir->item_counter = 0;
 }
-#endif
 
 //16.3 多生产者-单消费者模型
 static const int KItemRepositorySize = 3;
@@ -281,6 +280,111 @@ void InitItemRepository(ItemRepository *ir) {
     ir->pos_produce = 0;
     ir->item_counter = 0;
 }
+#endif
+
+//16.4 多生产者-多消费者模型
+static const int KItemRepositorySize = 3;
+static const int KItemsToProduce = 6;
+
+struct ItemRepository {
+    int item_buffer[KItemRepositorySize];
+    size_t pos_consume;
+    size_t pos_produce;
+    size_t produced_counter;
+    size_t consumed_counter;
+    mutex mtx;
+    mutex mtx_produced_counter;
+    mutex mtx_consumed_counter;
+    condition_variable cv_not_full;
+    condition_variable cv_not_empty;
+} gItemRepository;
+
+typedef struct ItemRepository ItemRepository;
+
+void ProduceItem(int id, ItemRepository *ir, int item) {
+    unique_lock<mutex> lock(ir->mtx);
+    while (((ir->pos_produce + 1) % KItemRepositorySize) == ir->pos_consume) {
+        cout << "==== Producer thread " << id << " is waiting for an empty slot..." << endl;
+        (ir->cv_not_full).wait(lock);
+    }
+
+    (ir->item_buffer)[ir->pos_produce] = item;
+    (ir->pos_produce)++;
+
+    if (ir->pos_produce == KItemRepositorySize) {
+        ir->pos_produce = 0;
+    }
+
+    (ir->cv_not_empty).notify_all();
+}
+
+int ConsumeItem(int id, ItemRepository *ir) {
+    int data;
+    unique_lock<mutex> lock(ir->mtx);
+    while (ir->pos_produce == ir->pos_consume) {
+        cout << ".... Consumer thread " << id << " is waiting for items..." << endl;
+        (ir->cv_not_empty).wait(lock);
+    }
+
+    data = (ir->item_buffer)[ir->pos_consume];
+    (ir->pos_consume)++;
+
+    if (ir->pos_consume >= KItemRepositorySize) {
+        ir->pos_consume = 0;
+    }
+
+    (ir->cv_not_full).notify_all();
+    return data;
+}
+
+void ProducerTask(int idx) {
+    bool ready_to_exit = false;
+    while (1) {
+        sleep_for(milliseconds(500));
+        unique_lock<mutex> lock(gItemRepository.mtx_produced_counter);
+        if (gItemRepository.produced_counter < KItemsToProduce) {
+            ++(gItemRepository.produced_counter);
+            ProduceItem(idx, &gItemRepository, gItemRepository.produced_counter);
+            int item = gItemRepository.produced_counter;
+            cout << "++++ Producer thread " << idx << " is producing the " << item << "^th item..." << endl;
+        } else {
+            ready_to_exit = true;
+        }
+
+        if (ready_to_exit) {
+            break;
+        }
+    }
+
+    cout << "<<<< Producer thread " << idx << " is exiting..." << endl;
+}
+
+void ConsumeTask(int idx) {
+    bool ready_to_exit = false;
+    while (1) {
+        unique_lock<mutex> lock(gItemRepository.mtx_consumed_counter);
+        if (gItemRepository.consumed_counter < KItemsToProduce) {
+            int item = ConsumeItem(idx, &gItemRepository);
+            ++(gItemRepository.consumed_counter);
+            cout << "---- Consumer thread " << idx << " is consuming the " << item << "^th item..." << endl;
+        } else {
+            ready_to_exit = true;
+        }
+
+        if (ready_to_exit) {
+            break;
+        }
+    }
+    cout << "<<<< Consumer thread " << idx << " is exiting..." << endl;
+}
+
+void InitItemRepository(ItemRepository *ir) {
+    ir->pos_consume = 0;
+    ir->pos_produce = 0;
+    ir->consumed_counter = 0;
+    ir->produced_counter = 0;
+}
+
 
 
 int main_application_example() {
@@ -305,7 +409,6 @@ int main_application_example() {
             pos.join();
         }
     }
-#endif
     {   //16.3 多生产者-单消费者模型
         InitItemRepository(&gItemRepository);
         vector<thread> vctTProducers;
@@ -319,7 +422,25 @@ int main_application_example() {
         }
         t_consumer.join();
     }
+#endif
+    {   //16.4 多生产者-多消费者模型
+        InitItemRepository(&gItemRepository);
+        vector<thread> vctProducers;
+        for (int i = 1; i <= 4; ++i) {
+            vctProducers.emplace_back(ProducerTask, i);
+        }
+        vector<thread> vctConsumers;
+        for (int i = 5; i <= 8; ++i) {
+            vctConsumers.emplace_back(ConsumeTask, i);
+        }
 
+        for (auto &pos : vctProducers) {
+            pos.join();
+        }
+        for (auto &pos : vctConsumers) {
+            pos.join();
+        }
+    }
 
     return 0;
 }
