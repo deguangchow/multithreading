@@ -90,13 +90,38 @@ void task_atomic_exchange(int id) {
     while (!g_atomic_ready_2) {
         yield();
     }
-    
     for (int i = 0; i < 1000000; ++i) {
     }
-    
     if (!g_atomic_flag_winner_2.exchange(true)) {
         cout << "thread " << id << " finished firstly!" << endl;
     }
+}
+
+//14.4 std::atomic::compare_exchange_weak()
+// a simple global linked list:
+struct Node {
+    int value;
+    Node *next;
+    Node(int v, Node *n) : value(v), next(n) {
+    }
+};
+atomic<Node*> list_head(nullptr);
+
+void append(int val) {
+    // 头插法插入新节点
+    Node *expected_node = list_head;
+    Node *val_node = new Node(val, expected_node);
+
+    // 比较原子对象中封装的值和 expected_node 是否相等：
+    // 相等：用 val_node 替换原子对象中的旧值；
+    // 不相等：用原子对象中的旧值替换 expected_node ；
+    while (!list_head.compare_exchange_weak(expected_node, val_node)) {
+        val_node->next = expected_node;
+    }
+
+    //while (!list_head.compare_exchange_strong(expected_node, val_node)) {
+    //    val_node->next = expected_node;
+    //}
 }
 
 
@@ -136,7 +161,6 @@ int main_atomic_test() {
         thread_src.join();
         thread_copy.join();
     }
-#endif
     {   //14.3 std::atomic::exchange()
         vector<thread> vctThreads;
         for (int i = 1; i <= 10; ++i) {
@@ -148,6 +172,22 @@ int main_atomic_test() {
         for (auto &pos : vctThreads) {
             pos.join();
         }
+    }
+#endif
+    {   //14.4 std::atomic::compare_exchange_weak()
+        vector<thread> vctThreads;
+        for (int i = 0; i < 10; ++i) {
+            vctThreads.emplace_back(append, i);
+        }
+        for (auto &pos : vctThreads) {
+            pos.join();
+        }
+
+        // print contents
+        for (Node *pos = list_head; pos != nullptr; pos = pos->next) {
+            cout << " " << pos->value;
+        }
+        cout << endl;
     }
 
     return 0;
