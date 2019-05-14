@@ -28,6 +28,9 @@ brief:		标准系统包含文件的包含文件
 #include <atomic>
 #include <vector>
 
+#include "console_log.h"
+
+
 //using namespace std;
 using std::thread;
 using std::this_thread::sleep_for;

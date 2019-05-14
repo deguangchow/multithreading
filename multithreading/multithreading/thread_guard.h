@@ -10,6 +10,8 @@
 #ifndef THREAD_GUARD_H
 #define THREAD_GUARD_H
 
+namespace thread_test {
+
 //线程守护
 class thread_guard {
     std::thread t;
@@ -43,25 +45,15 @@ void func() {
     }
 }
 
-int main_thread_guard() {
+void test_thread_guard() {
     try {
         func();
     } catch (const exception &e) {
         cout << e.what() << endl;
     }
-
-    auto lambda_fun = [](string text)->void {
-        cout << "hello world, " << text << endl;
-    };
-    thread t(lambda_fun, "lee");
-    if (t.joinable()) {
-        t.detach();
-    }
-    assert(!t.joinable());
-
-
-    return 0;
 }
 
-#endif
+}//namespace thread_test
+
+#endif//THREAD_GUARD_H
 

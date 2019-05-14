@@ -149,10 +149,11 @@
     <ClInclude Include="atomic_test.h" />
     <ClInclude Include="atomic_flag_test.h" />
     <ClInclude Include="condition_variable_test.h" />
+    <ClInclude Include="console_log.h" />
     <ClInclude Include="deamon_threads.h" />
     <ClInclude Include="function_test.h" />
     <ClInclude Include="future_test.h" />
-    <ClInclude Include="LiftOff.h" />
+    <ClInclude Include="thread_test.h" />
     <ClInclude Include="mutex_test.h" />
     <ClInclude Include="package_task_test.h" />
     <ClInclude Include="promise_test.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="thread_guard.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="console_log.cpp" />
     <ClCompile Include="multithreading.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -9,5 +9,10 @@
 #ifndef DEAMON_THREADS_H
 #define DEAMON_THREADS_H
 
+namespace thread_test {
+
+
+}//namespace thread_test
+
 #endif  //DEAMON_THREADS_H
 

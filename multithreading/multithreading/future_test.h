@@ -41,7 +41,7 @@ bool do_task(int x) {
         int a = x / i;
         a = x%i;
     }
-    return x % 2;
+    return x % 2 != 0;
 }
 
 //7.4 std::launch::async、std::launch::deferred

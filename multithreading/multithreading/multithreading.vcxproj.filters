@@ -34,6 +34,9 @@
     <Filter Include="application example">
       <UniqueIdentifier>{701c5fbd-20ba-4f81-a144-33d81ce8bf94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{7872ec88-914c-4f7c-ba53-ceab152c98f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -44,9 +47,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LiftOff.h">
-      <Filter>thread</Filter>
     </ClInclude>
     <ClInclude Include="thread_guard.h">
       <Filter>thread</Filter>
@@ -81,6 +81,12 @@
     <ClInclude Include="application_example.h">
       <Filter>application example</Filter>
     </ClInclude>
+    <ClInclude Include="console_log.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_test.h">
+      <Filter>thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -88,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="multithreading.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="console_log.cpp">
+      <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
