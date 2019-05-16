@@ -74,9 +74,15 @@ int main() {
     function_test::test_function_5();
 #endif
 
+#if 0//condition_variable
+    condition_variable_test::test_condition_variable_1();
+    condition_variable_test::test_condition_variable_2();
+    condition_variable_test::test_condition_variable_3();
+    condition_variable_test::test_condition_variable_4();
+    condition_variable_test::test_condition_variable_5();
+#endif
+
 #if 0
-    main_function_test();
-    main_condition_variable();
     main_atomic_flag_test();
     main_atomic_test();
     main_application_example();
