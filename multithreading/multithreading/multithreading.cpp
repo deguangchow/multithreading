@@ -47,6 +47,15 @@ int main() {
     promise_test::test_promise3();
 #endif
 
+#if 0//package_task
+    package_task_test::test_packaged_task_1();
+    package_task_test::test_packaged_task_2();
+    package_task_test::test_packaged_task_3();
+    package_task_test::test_packaged_task_4();
+    package_task_test::test_packaged_task_5();
+    package_task_test::test_packaged_task_6();
+#endif
+
 #if 0
     main_packaged_task_test();
     main_function_test();
