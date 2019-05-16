@@ -47,6 +47,16 @@ int main() {
     promise_test::test_promise3();
 #endif
 
+#if 0//future
+    future_test::test_future_1();
+    future_test::test_future_2();
+    future_test::test_future_3();
+    future_test::test_future_4();
+    future_test::test_future_5();
+    future_test::test_future_6();
+    future_test::test_future_7();
+#endif
+
 #if 0//package_task
     package_task_test::test_packaged_task_1();
     package_task_test::test_packaged_task_2();
@@ -57,7 +67,6 @@ int main() {
 #endif
 
 #if 0
-    main_packaged_task_test();
     main_function_test();
     main_future_test();
     main_condition_variable();
