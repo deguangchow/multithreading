@@ -20,6 +20,7 @@
 #include "application_example.h"
 
 int main() {
+    TICK();
 #if 0//thread
     thread_test::test_lift_off();
     thread_test::test_lift_off_thread();
@@ -40,8 +41,13 @@ int main() {
     mutex_test::test_once_flag();
 #endif
 
+#if 0//promise
+    promise_test::test_promise1();
+    promise_test::test_promise2();
+    promise_test::test_promise3();
+#endif
+
 #if 0
-    main_promise_test();
     main_packaged_task_test();
     main_function_test();
     main_future_test();
@@ -51,7 +57,6 @@ int main() {
     main_application_example();
 #endif
 
-    system("pause");
     return 0;
 }
 
