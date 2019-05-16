@@ -73,6 +73,7 @@ using std::packaged_task;
 using std::function;
 using std::bind;
 using std::placeholders::_1;
+using std::ref;
 
 using std::condition_variable;
 using std::cv_status;

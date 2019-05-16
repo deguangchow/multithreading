@@ -66,9 +66,16 @@ int main() {
     package_task_test::test_packaged_task_6();
 #endif
 
+#if 0//function
+    function_test::test_function_1();
+    function_test::test_function_2();
+    function_test::test_function_3();
+    function_test::test_function_4();
+    function_test::test_function_5();
+#endif
+
 #if 0
     main_function_test();
-    main_future_test();
     main_condition_variable();
     main_atomic_flag_test();
     main_atomic_test();
