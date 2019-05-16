@@ -96,9 +96,13 @@ int main() {
     atomic_test::test_atomic_5();
 #endif
 
-#if 0
-    main_application_example();
+#if 0//application_example
+    application_example_test::test_app_ex_1();
+    application_example_test::test_app_ex_2();
+    application_example_test::test_app_ex_3();
+    application_example_test::test_app_ex_4();
 #endif
+    application_example_test::test_app_ex_4();
 
     return 0;
 }
