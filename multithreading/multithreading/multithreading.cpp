@@ -82,8 +82,13 @@ int main() {
     condition_variable_test::test_condition_variable_5();
 #endif
 
+#if 0//atomic_flag
+    atomic_flag_test::test_atomic_flag_1();
+    atomic_flag_test::test_atomic_flag_2();
+    atomic_flag_test::test_atomic_flag_3();
+#endif
+
 #if 0
-    main_atomic_flag_test();
     main_atomic_test();
     main_application_example();
 #endif
