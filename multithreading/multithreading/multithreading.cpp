@@ -88,8 +88,15 @@ int main() {
     atomic_flag_test::test_atomic_flag_3();
 #endif
 
+#if 0//atomic
+    atomic_test::test_atomic_1();
+    atomic_test::test_atomic_3();
+    atomic_test::test_atomic_3();
+    atomic_test::test_atomic_4();
+    atomic_test::test_atomic_5();
+#endif
+
 #if 0
-    main_atomic_test();
     main_application_example();
 #endif
 

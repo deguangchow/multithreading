@@ -10,12 +10,16 @@
 #ifndef ATOMIC_TEST_H
 #define ATOMIC_TEST_H
 
+namespace atomic_test {
+
+
 //14. std::atomic
 // 由 false 初始化一个 std::atomic<bool> 类型的原子变量
 atomic<bool> g_atomic_ready_1(false);
 atomic_flag g_atomic_flag_winner_1 = ATOMIC_FLAG_INIT;
 
 void task_atomic(int id) {
+    TICK();
     // 等待 g_atomic_ready_1 变为 true
     while (!g_atomic_ready_1) {
         yield();
@@ -34,10 +38,12 @@ void task_atomic(int id) {
 atomic<int> g_atomic_val = 0;
 
 void set_atomic_val(int x) {
+    TICK();
     g_atomic_val = x;
 }
 
 void print_atomic_val() {
+    TICK();
     while (g_atomic_val == 0) {
         // wait while g_atomic_val == 0
         // 让当前线程放弃时间片，让其他线程执行
@@ -51,11 +57,13 @@ atomic<int> g_atomic_src = 0;
 atomic<int> g_atomic_dest = 0;
 
 void store_atomic_val(int x) {
+    TICK();
     // 设置（store）原子对象 g_atomic_val 的值。
     g_atomic_val.store(x, memory_order_relaxed);
 }
 
 void load_atomic_val() {
+    TICK();
     int x;
     do {
         // 读取（load）原子对象 g_atomic_val 的值。
@@ -65,10 +73,12 @@ void load_atomic_val() {
 }
 
 void set_src(int x) {
+    TICK();
     g_atomic_src = x;
 }
 
 void print_dest() {
+    TICK();
     while (g_atomic_dest == 0) {
         yield();
     }
@@ -76,6 +86,7 @@ void print_dest() {
 }
 
 void copy_src_to_dest() {
+    TICK();
     while (g_atomic_src == 0) {
         yield();
     }
@@ -87,6 +98,7 @@ atomic<bool> g_atomic_ready_2(false);
 atomic<bool> g_atomic_flag_winner_2(false);
 
 void task_atomic_exchange(int id) {
+    TICK();
     while (!g_atomic_ready_2) {
         yield();
     }
@@ -108,6 +120,7 @@ struct Node {
 atomic<Node*> list_head(nullptr);
 
 void append(int val) {
+    TICK();
     // 头插法插入新节点
     Node *expected_node = list_head;
     Node *val_node = new Node(val, expected_node);
@@ -125,74 +138,84 @@ void append(int val) {
 }
 
 
-int main_atomic_test() {
-#if 0
-    {   //14. std::atomic
-        vector<thread> vctThreads;
-        for (int i = 1; i <= 10; ++i) {
-            vctThreads.emplace_back(task_atomic, i);
-        }
-
-        // 由于 g_atomic_ready_1 是原子的，所以做赋值操作是线程安全的
-        g_atomic_ready_1 = true;
-
-        for (auto &pos : vctThreads) {
-            pos.join();
-        }
-    }
-    {   //14.1 std::atomic 赋值运算符 T operator=(T val)volatile nonexcept;
-        thread thread_print(print_atomic_val);
-        thread thread_set(set_atomic_val, 10);
-        thread_print.join();
-        thread_set.join();
-    }
-    {   //14.2 std::atomic::store(), std::atomic::load(), 强制类型转换 opreator T() const
-        thread thread_store(store_atomic_val, 10);
-        thread thread_load(load_atomic_val);
-        thread_store.join();
-        thread_load.join();
-
-        cout << "\n-----------------------------\n";
-
-        thread thread_dest(print_dest);
-        thread thread_src(set_src, 20);
-        thread thread_copy(copy_src_to_dest);
-        thread_dest.join();
-        thread_src.join();
-        thread_copy.join();
-    }
-    {   //14.3 std::atomic::exchange()
-        vector<thread> vctThreads;
-        for (int i = 1; i <= 10; ++i) {
-            vctThreads.emplace_back(task_atomic_exchange, i);
-        }
-
-        g_atomic_ready_2 = true;
-
-        for (auto &pos : vctThreads) {
-            pos.join();
-        }
-    }
-#endif
-    {   //14.4 std::atomic::compare_exchange_weak()
-        vector<thread> vctThreads;
-        for (int i = 0; i < 10; ++i) {
-            vctThreads.emplace_back(append, i);
-        }
-        for (auto &pos : vctThreads) {
-            pos.join();
-        }
-
-        // print contents
-        for (Node *pos = list_head; pos != nullptr; pos = pos->next) {
-            cout << " " << pos->value;
-        }
-        cout << endl;
+void test_atomic_1() {
+    TICK();
+    //14. std::atomic
+    vector<thread> vctThreads;
+    for (int i = 1; i <= 10; ++i) {
+        vctThreads.emplace_back(task_atomic, i);
     }
 
-    return 0;
+    // 由于 g_atomic_ready_1 是原子的，所以做赋值操作是线程安全的
+    g_atomic_ready_1 = true;
+
+    for (auto &pos : vctThreads) {
+        pos.join();
+    }
 }
 
+void test_atomic_2() {
+    TICK();
+    //14.1 std::atomic 赋值运算符 T operator=(T val)volatile nonexcept;
+    thread thread_print(print_atomic_val);
+    thread thread_set(set_atomic_val, 10);
+    thread_print.join();
+    thread_set.join();
+}
+
+void test_atomic_3() {
+    TICK();
+    //14.2 std::atomic::store(), std::atomic::load(), 强制类型转换 opreator T() const
+    thread thread_store(store_atomic_val, 10);
+    thread thread_load(load_atomic_val);
+    thread_store.join();
+    thread_load.join();
+
+    cout << "\n-----------------------------\n";
+
+    thread thread_dest(print_dest);
+    thread thread_src(set_src, 20);
+    thread thread_copy(copy_src_to_dest);
+    thread_dest.join();
+    thread_src.join();
+    thread_copy.join();
+}
+
+void test_atomic_4() {
+    TICK();
+    //14.3 std::atomic::exchange()
+    vector<thread> vctThreads;
+    for (int i = 1; i <= 10; ++i) {
+        vctThreads.emplace_back(task_atomic_exchange, i);
+    }
+
+    g_atomic_ready_2 = true;
+
+    for (auto &pos : vctThreads) {
+        pos.join();
+    }
+}
+
+void test_atomic_5() {
+    TICK();
+    //14.4 std::atomic::compare_exchange_weak()
+    vector<thread> vctThreads;
+    for (int i = 0; i < 10; ++i) {
+        vctThreads.emplace_back(append, i);
+    }
+    for (auto &pos : vctThreads) {
+        pos.join();
+    }
+
+    // print contents
+    for (Node *pos = list_head; pos != nullptr; pos = pos->next) {
+        cout << " " << pos->value;
+    }
+    cout << endl;
+}
+
+
+}//namespace atomic_test
 
 #endif  //ATOMIC_TEST_H
 
