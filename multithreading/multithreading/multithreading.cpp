@@ -102,7 +102,6 @@ int main() {
     application_example_test::test_app_ex_3();
     application_example_test::test_app_ex_4();
 #endif
-    application_example_test::test_app_ex_4();
 
     return 0;
 }
